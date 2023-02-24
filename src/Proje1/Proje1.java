@@ -9,12 +9,15 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.junit.Test;
+
 import java.util.Random;
 
 public class Proje1 extends BaseDriver {
+    static String str = RandomString.make(8);
+    String password1 = "campus";
 
     @Test
-    public  void Test1() {
+    public void Test1() {
         driver.get("https://itera-qa.azurewebsites.net/");
         WebElement singup = driver.findElement(By.xpath("//*[text()='Sign Up']"));
         singup.click();
@@ -44,11 +47,10 @@ public class Proje1 extends BaseDriver {
         mobile.sendKeys(mobile1);
 
         WebElement username = driver.findElement(By.xpath("//*[@id='Username']"));
-        String str=RandomString.make(8);
         username.sendKeys(str);
 
         WebElement password = driver.findElement(By.xpath("//*[@id='Password']"));
-        String password1 = "campus";
+
         password.sendKeys(password1);
 
         WebElement confirm = driver.findElement(By.cssSelector("[id='ConfirmPassword']"));
@@ -58,13 +60,39 @@ public class Proje1 extends BaseDriver {
         submit.click();
         WebElement successful = driver.findElement(By.xpath("//*[text() ='Registration Successful']"));
 
-        Assert.assertTrue("bulunamadı",successful.getText().equals("Registration Successful"));
+        Assert.assertTrue("bulunamadı", successful.getText().equals("Registration Successful"));
 
         MyFunction.Bekle(2);
 
+
+    }
+
+    @Test
+    public void Test2() {
+
+        driver.get("https://itera-qa.azurewebsites.net/");
+
+        WebElement login = driver.findElement(By.xpath("//*[text()='Login']"));
+        login.click();
+
+        WebElement username = driver.findElement(By.xpath("//*[@id='Username']"));
+        username.sendKeys(str);
+
+        WebElement password = driver.findElement(By.xpath("//*[@id='Password']"));
+        password.sendKeys(password1);
+
+        WebElement login2 = driver.findElement(By.xpath("//*[@value='Login']"));
+        login2.click();
+
+        WebElement dash = driver.findElement(By.xpath("//h1[text()='Dashboard']"));
+
+        Assert.assertTrue("login olunamdi", dash.getText().equals("Dashboard"));
+
+
+        MyFunction.Bekle(2);
+
+
         BekleKapat();
-
-
     }
 
 }
